@@ -13,7 +13,7 @@ cur.execute("CREATE TABLE countrycode (code, country);")
 
 
 
-# TABLE EMPLOYEES
+#TABLE EMPLOYEES
 with open('/home/vhessel/employees.csv','rt') as fin:
     dr = csv.DictReader(fin)
     to_db = [(i['id'], i['name'], i['position'], i['countrycode']) for i in dr]
