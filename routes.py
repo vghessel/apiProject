@@ -32,7 +32,7 @@ def companyEmployees():
 
 
 
-@app.route("/employees/id")    #verificar como colocar o id no endpoint
+@app.route("/employees/id")    
 def companyEmployee():
 
     body = request.get_json()
