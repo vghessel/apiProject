@@ -51,7 +51,6 @@ def companyEmployee():
     return jsonify(result.fetchall())
 
 
-<<<<<<< HEAD
 #POST
 
 @app.route("/employees/add", methods=["POST"])
@@ -107,6 +106,3 @@ def generateResponse(status, message, content_name=False, content=False):
 
 
 app.run()
-=======
-app.run()
->>>>>>> 2a38d304bcfccdec8d66db3e9f51e4f3a4bc19cb
