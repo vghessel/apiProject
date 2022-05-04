@@ -34,7 +34,7 @@ def companyEmployees():
 
 #GET INDIVIDUAL
 
-@app.route("/employees/id")    
+@app.route("/employees/id")    #Verificar ID como endpoint
 def companyEmployee():
 
     body = request.get_json()
@@ -59,13 +59,13 @@ def addEmployee():
     body = request.get_json()
 
     if("id" not in body):
-        return generateResponse(400, "The id parameter is required!")
+        return generateResponse(400, "The 'id' parameter is required!")
     if ("name" not in body):
-        return generateResponse(400, "The name parameter is required!")
+        return generateResponse(400, "The 'name' parameter is required!")
     if ("position" not in body):
-        return generateResponse(400, "The position parameter is required!")
+        return generateResponse(400, "The 'position' parameter is required!")
     if ("countrycode" not in body):
-        return generateResponse(400, "The countrycode parameter is required!")
+        return generateResponse(400, "The 'countrycode' parameter is required!")
 
     tree = ET.parse('dbpath.xml')
     root = tree.getroot()
@@ -83,14 +83,76 @@ def addEmployee():
     conn.commit()
     conn.close()
 
-    return generateResponse(200, "Added employee!", "name:", body["name"])
+    return generateResponse(200, "Employee Added!", "name:", body["name"])
 
 
 #PUT
 
+@app.route("/employees/update", methods=["PUT"])
+def updateEmployee():
+
+    body = request.get_json()
+
+    tree = ET.parse('dbpath.xml')
+    root = tree.getroot()
+    adress = tree.find('dbpath').text
+
+    conn = sqlite3.connect(adress)
+    cur = conn.cursor()
+
+    if ("id" not in body):
+        return generateResponse(400, "The 'id' parameter is required!")
+    else:
+        name = 'NULL'
+        position = 'NULL'
+        countrycode = 'NULL'
+
+        if ("name" in body):
+            name = "'{}'".format(body["name"])
+        if ("position" in body):
+            position = "'{}'".format(body["position"])
+        if ("countrycode" in body):
+            countrycode = "'{}'".format(body["countrycode"])
+
+        result = cur.execute('''
+        UPDATE
+          employees
+        SET
+          name = coalesce({0}, name), 
+          position = coalesce({1}, position), 
+          countrycode = coalesce({2}, countrycode)        
+        WHERE id = '{3}';
+        '''.format(name, position, countrycode, body["id"]))
+
+    conn.commit()
+    conn.close()
+
+    return generateResponse(200, "Employee Updated", "name:", body["name"])
+
 
 #DELETE
 
+@app.route("/employees/delete", methods=["DELETE"]) 
+def deleteEmployee():
+
+    body = request.get_json()
+
+    if ("id" not in body):
+        return generateResponse(400, "Inform only the 'id' parameter")
+
+    tree = ET.parse('dbpath.xml')
+    root = tree.getroot()
+    adress = tree.find('dbpath').text
+
+    conn = sqlite3.connect(adress)
+    cur = conn.cursor()
+
+    result = cur.execute("DELETE from employees WHERE id = '{0}';".format(body["id"]))
+
+    conn.commit()
+    conn.close()
+
+    return generateResponse(200, "Employee Deleted", "id:", body["id"])         #Buscar Employee pelo id e reproduzir o nome na mensagem de exclusao!
 
 #RESPONSES
 
