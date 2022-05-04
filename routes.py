@@ -34,7 +34,7 @@ def companyEmployees():
 
 #GET INDIVIDUAL
 
-@app.route("/employees/id")    #Verificar ID como endpoint
+@app.route("/employees/id") 
 def companyEmployee():
 
     body = request.get_json()
@@ -138,7 +138,7 @@ def deleteEmployee():
     body = request.get_json()
 
     if ("id" not in body):
-        return generateResponse(400, "Inform only the 'id' parameter")
+        return generateResponse(400, "Only inform the 'id' parameter")
 
     tree = ET.parse('dbpath.xml')
     root = tree.getroot()
@@ -152,7 +152,7 @@ def deleteEmployee():
     conn.commit()
     conn.close()
 
-    return generateResponse(200, "Employee Deleted", "id:", body["id"])         #Buscar Employee pelo id e reproduzir o nome na mensagem de exclusao!
+    return generateResponse(200, "Employee Deleted", "id:", body["id"])
 
 #RESPONSES
 
