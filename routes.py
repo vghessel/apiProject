@@ -18,7 +18,10 @@ def companyEmployees():
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
 
-    result = cur.execute("SELECT * from employees;")
+    result = cur.execute('''
+    SELECT employees.id, employees.name, employees.position, countrycode.country
+    FROM employees, countrycode
+    WHERE employees.countrycode = countrycode.code;''')
     
     retorno = []
     for row in result.fetchall():
@@ -26,13 +29,13 @@ def companyEmployees():
         item['id'] = row['id']
         item['name'] = row['name']
         item['position'] = row['position']
-        item['countrycode'] = row['countrycode']
+        item['country'] = row['country']
         retorno.append(item)
 
     return jsonify(retorno)
 
 
-#GET INDIVIDUAL
+#GET (INDIVIDUAL)
 
 @app.route("/employees/id") 
 def companyEmployee():
@@ -46,7 +49,11 @@ def companyEmployee():
     conn = sqlite3.connect(adress)
     cur = conn.cursor()
 
-    result = cur.execute("SELECT * from employees WHERE id = '{0}';".format(body["id"]))
+    result = cur.execute('''
+    SELECT employees.id, employees.name, employees.position, countrycode.country
+    FROM employees, countrycode
+    WHERE employees.countrycode = countrycode.code AND id = '{0}';
+    '''.format(body["id"]))
 
     return jsonify(result.fetchall())
 
