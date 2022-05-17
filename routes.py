@@ -20,8 +20,7 @@ def companyEmployees():
 
     result = cur.execute('''
     SELECT employees.id, employees.name, employees.position, countrycode.country
-    FROM employees, countrycode
-    WHERE employees.countrycode = countrycode.code;''')
+    FROM employees INNER JOIN countrycode ON employees.countrycode = countrycode.code;''') 
     
     retorno = []
     for row in result.fetchall():
