@@ -1,6 +1,10 @@
 from flask import Flask, request, jsonify
-import sqlite3
+import csv, sqlite3
 import xml.etree.ElementTree as ET
+import os
+from script import script
+
+script()
 
 app = Flask("main")
 
