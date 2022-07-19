@@ -9,7 +9,7 @@ SQLite3 database with two tables (using join)
 Libs:
 * sqlite3
 * csv
-* you
+* os
 * ElementTree
 * request
 * jsonify
