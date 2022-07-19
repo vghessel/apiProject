@@ -1,4 +1,4 @@
 <config>
-    <dbpath>/home/vhessel/company.db</dbpath>
+    <dbpath>put-adress-create-database/company.db</dbpath>
     <version>v1.0.0</version>
 </config>
