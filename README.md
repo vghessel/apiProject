@@ -1,12 +1,14 @@
-##CRUD API in python3 using Flask
+<h2 align="center"> Python CRUD API </h2>
 
-Routes tested with Postman
+CRUD API in python3 using **Flask**
 
-Create database, tables and import csv files with Python script
+Routes tested with **Postman**
 
-SQLite3 database with two tables (using join)
+Create database, tables and import csv files with **python script**
 
-Libs:
+**SQLite3** database with two tables (using join)
+
+*Libs:*
 * sqlite3
 * csv
 * os
@@ -14,7 +16,7 @@ Libs:
 * request
 * jsonify
 
-Steps:
+*Steps:*
 * Download the repository.
 * Change the 'dbpath.xml' file with the address where you want the database to be saved.
 * Run API.
