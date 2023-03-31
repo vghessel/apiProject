@@ -22,5 +22,5 @@ Create database, tables and import csv files with **python script**
 * Run API.
 
 When the API is started, it checks if the database exists at the address entered in dbpath.xml, if it does not have a database with the chosen name, it executes a script found in the script.py file.
-It will create the database, tables and import information from csv files into these tables.
+It will create the database, tables and import information from CSV files into these tables.
 Thus creating the complete database.
